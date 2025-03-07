@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Save - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100">
+    <!-- Mobile Menu Button -->
+    <button id="menu-btn" class="md:hidden p-2 text-white bg-green-600 rounded-full">
+        ☰
+    </button>
+
+    <!-- Sidebar -->
+    <aside class="hidden md:block fixed left-0 top-0 h-full w-64 bg-green-600 text-white p-4">
+        <!-- SmartSave Logo -->
+        <div class="flex items-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-12 h-12 text-white mr-3">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8V6a2 2 0 012-2h14a2 2 0 012 2v2M3 12h18M3 16h18v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-2z" />
+            </svg>
+            <h2 class="text-2xl font-bold">Smart Save</h2>
+        </div>
+        <hr>
+
+        <!-- Navigation Links -->
+         <div class="flex-col flex justify-between h-[85%]">
+            <nav class="space-y-4 mt-2">
+                <!-- Dashboard -->
+                <a href="#" class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+    
+                <!-- Savings -->
+                <a href="#" class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                    <i class="fas fa-piggy-bank mr-3 text-xl"></i>
+                    <span>Savings</span>
+                </a>
+    
+                <!-- Expenses -->
+                <a href="#" class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                    <i class="fas fa-wallet mr-3 text-xl"></i>
+                    <span>Expenses</span>
+                </a>
+    
+                <!-- Debt Management -->
+                <a href="#" class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                    <i class="fas fa-chart-line mr-3 text-xl"></i>
+                    <span>Debt Management</span>
+                </a>
+
+                 <!-- Expenses -->
+                 <a href="#" class="flex items-center p-3 bg-green-700 rounded-lg">
+                    <i class="fas fa-user-graduate mr-3 text-xl"></i>
+                    <span>Financial Education</span>
+                </a>
+            </nav>
+    
+            <!-- Profile & Logout -->
+            <div class="mt-auto space-y-4">
+                <!-- Profile -->
+                <div class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5 text-white mr-3">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zM12 16c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                    <span>Profile</span>
+                </div>
+    
+                <!-- Logout -->
+                <div class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                    </svg>
+                    <span>Logout</span>
+                </div>
+            </div>
+         </div>
+        
+    </aside>
+
+    <!-- Main Content -->
+     
+    <main class="md:ml-64 p-6">
+        <div>
+            <div class="flex items-center justify-end">
+                <div class="flex items-center mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-12 h-12 text-white bg-green-500 rounded-full p-2 mr-2">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zM12 16c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                    <div class="flex flex-col">
+                        <div class="text-sm md:text-base text-gray-800 font-medium">John Doe</div>
+                        <span class="text-xs">Member Since Febuary 2024</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container mx-auto p-6">
+            <!-- Page Title -->
+            <h1 class="text-3xl font-semibold text-green-600 mb-6">Financial Education</h1>
+            <div class="flex justify-between items-center mb-6">
+                <!-- Search Bar -->
+                <input type="text" placeholder="Search Lessons" class="p-2 border rounded-lg w-2/3" />
+    
+                <!-- Filter by Category -->
+                Filter by Category:
+                <select class="p-2 border rounded-lg ">
+                    <option value="all" disabled selected>All</option>
+                    <option value="saving">Saving</option>
+                    <option value="investing">Investing</option>
+                    <option value="budgeting">Budgeting</option>
+                </select>
+            </div>
+            <!-- Tabs for Videos and Articles -->
+            <div class="flex space-x-4 mb-6">
+                <button onclick="toggleTab('text')" id="text" class="px-4 py-2 bg-green-500 text-white rounded-lg focus:outline-none hover:bg-green-500 hover:text-white">
+                    Articles/Text Lessons
+                </button>
+                <button onclick="toggleTab('video')" id="video" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg focus:outline-none hover:bg-green-500 hover:text-white">
+                    Video Lessons
+                </button>
+            </div>
+    
+            <!-- Text Lessons Tab -->
+            <div id="textTab">
+                <h2 class="text-xl font-semibold text-green-600 mb-4">10 Text-Based Lessons</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Saving Lesson -->
+                    <div class="bg-white rounded-lg shadow-md">
+                        <img src="https://www.etmoney.com/learn/wp-content/uploads/2024/07/How-to-save-50-lakh-in-5-years_List-1536x862.jpg" alt="Saving Lesson" class="w-full h-48">
+                        <div class="p-4">
+                            <p class="text-gray-700 font-bold text-xl mb-4">5 steps to achieve your financial goal</p>
+                            <h3 class="text-sm font-semibold text-white bg-green-400 px-2 py-1 rounded-full w-fit">Saving</h3>
+                            <p class="text-gray-700 mb-4">Learn how to save money effectively and plan for future goals.</p>
+                            
+                            <a href="#" class="text-green-600 hover:underline">Read Lesson</a>
+                        </div>
+
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md">
+                        <img src="https://www.etmoney.com/learn/wp-content/uploads/2024/07/How-to-save-50-lakh-in-5-years_List-1536x862.jpg" alt="Saving Lesson" class="w-full h-48">
+                        <div class="p-4">
+                            <p class="text-gray-700 font-bold text-xl mb-4">5 steps to achieve your financial goal</p>
+                            <h3 class="text-sm font-semibold text-white bg-green-400 px-2 py-1 rounded-full w-fit">Saving</h3>
+                            <p class="text-gray-700 mb-4">Learn how to save money effectively and plan for future goals.</p>
+                            
+                            <a href="#" class="text-green-600 hover:underline">Read Lesson</a>
+                        </div>
+
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md">
+                        <img src="https://www.etmoney.com/learn/wp-content/uploads/2024/07/How-to-save-50-lakh-in-5-years_List-1536x862.jpg" alt="Saving Lesson" class="w-full h-48">
+                        <div class="p-4">
+                            <p class="text-gray-700 font-bold text-xl mb-4">5 steps to achieve your financial goal</p>
+                            <h3 class="text-sm font-semibold text-white bg-green-400 px-2 py-1 rounded-full w-fit">Saving</h3>
+                            <p class="text-gray-700 mb-4">Learn how to save money effectively and plan for future goals.</p>
+                            
+                            <a href="#" class="text-green-600 hover:underline">Read Lesson</a>
+                        </div>
+
+                    </div>
+                    
+                  
+                </div>
+                <div  class="flex justify-center mt-4">
+                    <button class="bg-green-500 text-white p-2 rounded-lg">Load More</button>
+                </div>
+                
+            </div>
+    
+            <!-- Video Lessons Tab -->
+            <div id="videoTab" class="hidden">
+                <h2 class="text-xl font-semibold text-green-600 mb-4">20 Video Lessons</h2>
+                <div class="grid grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Video Lesson Example -->
+                    <div class="bg-white rounded-lg shadow-md">
+
+                        <iframe class="w-full h-48" src="https://www.youtube.com/embed/aXDuLxEJqBo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <div class="p-4">
+                            <p class="text-gray-700 font-bold text-xl mb-4">5 steps to achieve your financial goal</p>
+                            <h3 class="text-sm font-semibold text-white bg-green-400 px-2 py-1 rounded-full w-fit">Saving</h3>
+                            <p class="text-gray-700 mb-4">Learn how to save money effectively and plan for future goals.</p>
+                            
+                            <a href="#" class="text-green-600 hover:underline">Watch on Youtube</a>
+                        </div>
+
+                    </div>
+                </div>
+                <div  class="flex justify-center mt-4">
+                    <button class="bg-green-500 text-white p-2 rounded-lg">Load More</button>
+                </div>
+            </div>
+        </div>
+    
+      
+    </main>
+
+    <script>
+        function toggleTab(tabName) {
+            const tabText= document.getElementById('text');
+            const tabvideo= document.getElementById('video');
+            const textTab = document.getElementById('textTab');
+            const videoTab = document.getElementById('videoTab');
+            
+            if (tabName === 'text') {
+                tabvideo.classList.remove('bg-green-500','text-white');
+                tabvideo.classList.add('bg-gray-300','text-gray-700');
+                tabText.classList.remove('bg-gray-300','text-gray-700');
+                tabText.classList.add('bg-green-500','text-white');
+                textTab.classList.remove('hidden');
+                videoTab.classList.add('hidden');
+            } else {
+                tabText.classList.remove('bg-green-500','text-white');
+                tabText.classList.add('bg-gray-300','text-gray-700');
+                tabvideo.classList.remove('bg-gray-300','text-gray-700');
+                tabvideo.classList.add('bg-green-500','text-white');
+                textTab.classList.remove('hidden');
+                textTab.classList.add('hidden');
+                videoTab.classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html>

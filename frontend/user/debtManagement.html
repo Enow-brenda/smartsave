@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Save - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100">
+    <!-- Mobile Menu Button -->
+    <button id="menu-btn" class="md:hidden p-2 text-white bg-green-600 rounded-full">
+        ☰
+    </button>
+
+    <!-- Sidebar -->
+    <aside class="hidden md:block fixed left-0 top-0 h-full w-64 bg-green-600 text-white p-4">
+        <!-- SmartSave Logo -->
+        <div class="flex items-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-12 h-12 text-white mr-3">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8V6a2 2 0 012-2h14a2 2 0 012 2v2M3 12h18M3 16h18v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-2z" />
+            </svg>
+            <h2 class="text-2xl font-bold">Smart Save</h2>
+        </div>
+        <hr>
+
+        <!-- Navigation Links -->
+         <div class="flex-col flex justify-between h-[85%]">
+            <nav class="space-y-4 mt-2">
+                <!-- Dashboard -->
+                <a href="#" class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+    
+                <!-- Savings -->
+                <a href="#" class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                    <i class="fas fa-piggy-bank mr-3 text-xl"></i>
+                    <span>Savings</span>
+                </a>
+    
+                <!-- Expenses -->
+                <a href="#" class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                    <i class="fas fa-wallet mr-3 text-xl"></i>
+                    <span>Expenses</span>
+                </a>
+    
+                <!-- Debt Management -->
+                <a href="#" class="flex items-center p-3 bg-green-700 rounded-lg">
+                    <i class="fas fa-chart-line mr-3 text-xl"></i>
+                    <span>Debt Management</span>
+                </a>
+
+                 <!-- Expenses -->
+                 <a href="#" class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                    <i class="fas fa-user-graduate mr-3 text-xl"></i>
+                    <span>Financial Education</span>
+                </a>
+            </nav>
+    
+            <!-- Profile & Logout -->
+            <div class="mt-auto space-y-4">
+                <!-- Profile -->
+                <div class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5 text-white mr-3">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zM12 16c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                    <span>Profile</span>
+                </div>
+    
+                <!-- Logout -->
+                <div class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                    </svg>
+                    <span>Logout</span>
+                </div>
+            </div>
+         </div>
+        
+    </aside>
+
+    <!-- Main Content -->
+     
+    <main class="md:ml-64 p-6">
+        <div>
+            <div class="flex items-center justify-end">
+                <div class="flex items-center mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-12 h-12 text-white bg-green-500 rounded-full p-2 mr-2">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zM12 16c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                    <div class="flex flex-col">
+                        <div class="text-sm md:text-base text-gray-800 font-medium">John Doe</div>
+                        <span class="text-xs">Member Since Febuary 2024</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h1 class="text-3xl font-bold text-green-600 mb-4">Debt Management</h1>
+        <div class="flex flex-col md:flex-row gap-2">
+            <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg h-fit">
+
+                
+                <!-- Debt Insights Section -->
+                <section class="mb-6">
+                    <h2 class="text-2xl font-semibold text-gray-700">Weekly Debt Insights</h2>
+                    <div class="mt-4 space-y-4">
+                        <div class="bg-green-100 p-4 rounded-lg">
+                            <h3 class="text-lg font-semibold text-green-700">Tip: Reduce Unnecessary Expenses</h3>
+                            <p class="text-gray-600">Identify non-essential spending and allocate more towards debt repayment.</p>
+                        </div>
+                        <div class="bg-red-100 p-4 rounded-lg">
+                            <h3 class="text-lg font-semibold text-red-700">Trap: Relying on Minimum Payments</h3>
+                            <p class="text-gray-600">Paying only the minimum extends debt duration and increases interest.</p>
+                        </div>
+                        <div class="bg-green-100 p-4 rounded-lg">
+                            <h3 class="text-lg font-semibold text-green-700">Tip: Snowball vs Avalanche Method</h3>
+                            <p class="text-gray-600">Consider different strategies: Pay small debts first (snowball) or high-interest ones first (avalanche).</p>
+                        </div>
+                    </div>
+                </section>
+        
+                <!-- Debt Repayment Calculator -->
+                <section>
+                    <h2 class="text-2xl font-semibold text-gray-700">Debt Repayment Calculator</h2>
+                    <div id="result" class="mt-4 p-4 bg-gray-100 rounded-lg text-gray-700 font-semibold"></div>
+                    <div class="mt-4">
+                        <label class="block text-gray-700">Loan Amount (FCFA)</label>
+                        <input type="number" id="loanAmount" class="w-full p-2 border rounded-lg mb-2">
+                        
+                        <label class="block text-gray-700">Interest Rate (%)</label>
+                        <input type="number" id="interestRate" class="w-full p-2 border rounded-lg mb-2">
+                        
+                        <label class="block text-gray-700">Duration (Months)</label>
+                        <input type="number" id="duration" class="w-full p-2 border rounded-lg mb-4">
+                        
+                        <button onclick="calculateRepayment()" class="w-full bg-green-600 text-white p-2 rounded-lg hover:bg-green-700 transition">Calculate</button>
+                    </div>
+                    
+                </section>
+                <div class="flex justify-center mt-4">
+                    <canvas id="debtBarChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+            <div class="md:w-1/2 max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg h-fit">
+                <section>
+                    <h2 class="text-2xl font-semibold text-gray-700">Debt Tracker</h2>
+        
+                    <!-- Tabs -->
+                    <div class="flex space-x-4 mb-6 mt-4">
+                        <button onclick="showTab('adddebt')" class="py-2 px-4 text-lg font-semibold bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+                            Add Debt
+                        </button>
+                        <button onclick="showTab('active')" class="py-2 px-4 text-lg font-semibold bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+                            Active 
+                        </button>
+                        <button onclick="showTab('completed')" class="py-2 px-4 text-lg font-semibold bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+                            Completed 
+                        </button>
+                        <button onclick="showTab('completed')" class="py-2 px-4 text-lg font-semibold bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+                            Overdue
+                        </button>
+                    </div>
+        
+                    <!-- Add Debt Form -->
+                    <div class="mt-4">
+                        <label class="block text-gray-700">Debt Name</label>
+                        <input type="text" id="debtName" class="w-full p-2 border rounded-lg mb-2">
+                        
+                        <label class="block text-gray-700">Amount (FCFA)</label>
+                        <input type="number" id="debtAmount" class="w-full p-2 border rounded-lg mb-2">
+
+                        <label class="block text-gray-700">Due Date </label>
+                        <input type="date" id="dueDate" class="w-full p-2 border rounded-lg mb-2">
+                        
+                        
+                        <button onclick="addDebt()" class="w-full mt-2 bg-green-600 text-white p-2 rounded-lg hover:bg-green-700 transition">Add Debt</button>
+                        
+                    </div>
+        
+                    <!-- Debts List -->
+                    <div class="mt-4">
+                        <h3 class="text-xl font-semibold text-gray-700">20 Active Debts</h3>
+                        <ul id="activeDebts" class="mt-2 space-y-2">
+                            <div class="max-w-5xl mx-auto">
+                        
+                                <!-- Debt Cards -->
+                                <div class="grid gap-6 grid-cols-1">
+                                    <!-- Debt 1 -->
+                                    <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-yellow-500">
+                                        <div class="flex justify-between items-center">
+                                            <h2 class="text-xl font-semibold text-gray-700">Car Loan</h2>
+                                            <span class="text-yellow-700 bg-yellow-200 px-2 py-1 rounded">Active</span>
+                                        </div>
+                                        <p class="text-gray-500 mt-2">Amount Paid: <span class="text-green-600 font-bold">FCFA 250,000</span></p>
+                                        <p class="text-gray-700">Total Amount: <span class="font-bold">FCFA 500,000</span></p>
+                                        <p class="text-gray-500">Due Date: <span class="font-semibold">2025-06-30</span></p>
+                        
+                                        <!-- Action Buttons -->
+                                        <div class="mt-4 flex justify-end space-x-3">
+                                            <button class="text-blue-600 hover:text-blue-800">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M12 20h9"></path>
+                                                    <path d="M16 4l4 4-12 12-4 0 0-4 12-12z"></path>
+                                                </svg>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-800">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M3 6h18"></path>
+                                                    <path d="M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m4 0v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6h16z"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                        
+                                    <!-- Debt 2 -->
+                                    <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-green-500">
+                                        <div class="flex justify-between items-center">
+                                            <h2 class="text-xl font-semibold text-gray-700">Credit Card</h2>
+                                            <span class="text-green-700 bg-green-200 px-2 py-1 rounded">Completed</span>
+                                        </div>
+                                        <p class="text-gray-500 mt-2">Amount Paid: <span class="text-green-600 font-bold">FCFA 300,000</span></p>
+                                        <p class="text-gray-700">Total Amount: <span class="font-bold">FCFA 300,000</span></p>
+                                        <p class="text-gray-500">Due Date: <span class="font-semibold">2024-12-01</span></p>
+                        
+                                        <!-- Action Buttons -->
+                                        <div class="mt-4 flex justify-end space-x-3">
+                                            <button class="text-blue-600 hover:text-blue-800">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M12 20h9"></path>
+                                                    <path d="M16 4l4 4-12 12-4 0 0-4 12-12z"></path>
+                                                </svg>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-800">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M3 6h18"></path>
+                                                    <path d="M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m4 0v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6h16z"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                        
+                                    <!-- Debt 3 -->
+                                    <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-red-500">
+                                        <div class="flex justify-between items-center">
+                                            <h2 class="text-xl font-semibold text-gray-700">House Mortgage</h2>
+                                            <span class="text-red-700 bg-red-200 px-2 py-1 rounded">Overdue</span>
+                                        </div>
+                                        <p class="text-gray-500 mt-2">Amount Paid: <span class="text-green-600 font-bold">FCFA 1,200,000</span></p>
+                                        <p class="text-gray-700">Total Amount: <span class="font-bold">FCFA 2,000,000</span></p>
+                                        <p class="text-gray-500">Due Date: <span class="font-semibold">2024-10-15</span></p>
+                        
+                                        <!-- Action Buttons -->
+                                        <div class="mt-4 flex justify-end space-x-3">
+                                            <button class="text-blue-600 hover:text-blue-800">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M12 20h9"></path>
+                                                    <path d="M16 4l4 4-12 12-4 0 0-4 12-12z"></path>
+                                                </svg>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-800">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M3 6h18"></path>
+                                                    <path d="M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m4 0v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6h16z"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ul>
+                    </div>
+                    <div class="mt-4 hidden" id="completedDebtsTab">
+                        <h3 class="text-xl font-semibold text-gray-700">Completed Debts</h3>
+                        <ul id="completedDebts" class="mt-2 space-y-2"></ul>
+                    </div>
+                </section>
+            </div>
+        </div>
+        
+    
+    
+       
+    </main>
+    <script>
+        function calculateRepayment() {
+            const loanAmount = parseFloat(document.getElementById('loanAmount').value);
+            const interestRate = parseFloat(document.getElementById('interestRate').value) / 100 / 12;
+            const duration = parseInt(document.getElementById('duration').value);
+            
+            if (isNaN(loanAmount) || isNaN(interestRate) || isNaN(duration) || duration <= 0) {
+                document.getElementById('result').innerText = 'Please enter valid values.';
+                return;
+            }
+            
+            const monthlyPayment = (loanAmount * interestRate) / (1 - Math.pow(1 + interestRate, -duration));
+            const totalInterest = (monthlyPayment * duration) - loanAmount;
+            
+            document.getElementById('result').innerHTML = `
+                Monthly Payment: <span class='text-green-600'>FCFA ${monthlyPayment.toFixed(2)}</span><br>
+                Total Interest: <span class='text-green-600'>FCFA ${totalInterest.toFixed(2)}</span>
+            `;
+        }
+        const totalDebt = 5000;
+        const paidDebt = 2000;
+        const overdueDebt = 1000;
+        const remainingDebt = totalDebt - (paidDebt + overdueDebt);
+
+        // Set up Bar Chart Data
+        const data = {
+            labels: ['Paid Debt', 'Overdue Debt', 'Remaining Debt'],
+            datasets: [{
+                label: 'Debt Status',
+                data: [paidDebt, overdueDebt, remainingDebt],
+                backgroundColor: ['#4caf50', '#ff0000', '#2196f3'],
+                borderColor: ['#4caf50', '#ff0000', '#2196f3'],
+                borderWidth: 1
+            }]
+        };
+
+        // Create the Bar Chart
+        const ctx = document.getElementById('debtBarChart').getContext('2d');
+        const debtBarChart = new Chart(ctx, {
+            type: 'bar', // Bar chart type
+            data: data,
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 500, // Adjust step size as per your debt range
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                const dataset = tooltipItem.dataset;
+                                const dataIndex = tooltipItem.dataIndex;
+                                const value = dataset.data[dataIndex];
+                                return `Amount: $${value}`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+   
+</body>
+</html>

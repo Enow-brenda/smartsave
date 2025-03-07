@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Save - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100">
+    <!-- Mobile Menu Button -->
+    <button id="menu-btn" class="md:hidden p-2 text-white bg-green-500 rounded-full">
+        ☰
+    </button>
+
+    <!-- Sidebar -->
+    <aside class="hidden md:block fixed left-0 top-0 h-full w-64 bg-green-500 text-white p-4">
+        <!-- SmartSave Logo -->
+        <div class="flex items-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-12 h-12 text-white mr-3">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8V6a2 2 0 012-2h14a2 2 0 012 2v2M3 12h18M3 16h18v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-2z" />
+            </svg>
+            <h2 class="text-2xl font-bold">Smart Save</h2>
+        </div>
+        <hr>
+
+        <!-- Navigation Links -->
+         <div class="flex-col flex justify-between h-[85%]">
+            <nav class="space-y-4 mt-2">
+                <!-- Dashboard -->
+                <a href="#" class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+    
+                <!-- Savings -->
+                <a href="#" class="flex items-center p-3 bg-green-700 rounded-lg">
+                    <i class="fas fa-piggy-bank mr-3 text-xl"></i>
+                    <span>Savings</span>
+                </a>
+    
+                <!-- Expenses -->
+                <a href="#" class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                    <i class="fas fa-wallet mr-3 text-xl"></i>
+                    <span>Expenses</span>
+                </a>
+    
+                <!-- Debt Management -->
+                <a href="#" class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                    <i class="fas fa-chart-line mr-3 text-xl"></i>
+                    <span>Debt Management</span>
+                </a>
+
+                 <!-- Expenses -->
+                 <a href="#" class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                    <i class="fas fa-user-graduate mr-3 text-xl"></i>
+                    <span>Financial Education</span>
+                </a>
+            </nav>
+    
+            <!-- Profile & Logout -->
+            <div class="mt-auto space-y-4">
+                <!-- Profile -->
+                <div class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5 text-white mr-3">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zM12 16c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                    <span>Profile</span>
+                </div>
+    
+                <!-- Logout -->
+                <div class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                    </svg>
+                    <span>Logout</span>
+                </div>
+            </div>
+         </div>
+        
+    </aside>
+
+    <!-- Main Content -->
+     
+    <main class="md:ml-64 p-6">
+        <div class="mb-5">
+            <div class="flex items-center justify-end">
+                <div class="flex items-center mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-12 h-12 text-white bg-green-500 rounded-full p-2 mr-2">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zM12 16c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                    <div class="flex flex-col">
+                        <div class="text-sm md:text-base text-gray-800 font-medium">John Doe</div>
+                        <span class="text-xs">Member Since Febuary 2024</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+
+    <!-- Goal Savings Page Header -->
+    <div class="bg-green-500 text-white py-6 px-4 text-center">
+        <h1 class="text-3xl font-bold">Goal Savings</h1>
+        <p class="text-lg">Track your financial goals, monitor progress, and view transaction history!</p>
+    </div>
+     <!-- Create New Goal Button -->
+     <div class="bg-white shadow-lg rounded-lg p-6 mt-6">
+        <button id="createbutton" class="w-full py-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-700 transition">
+            + Create New Goal
+        </button>
+    </div>
+
+    <!-- Tabs to switch between Active and Completed Goals -->
+    <div class="max-w-4xl mx-auto p-6">
+        <div class="flex space-x-4 mb-8">
+            <button id="activeTab" class="py-2 px-4 w-full text-center text-lg font-semibold text-white bg-green-500 rounded-lg hover:bg-green-500 hover:text-white  transition" onclick="showTab('active')">
+                Active Goals
+            </button>
+            <button id="completedTab" class="py-2 px-4 w-full text-center text-lg font-semibold text-gray-700 bg-gray-300 rounded-lg hover:bg-green-500 hover:text-white transition" onclick="showTab('completed')">
+                Completed Goals
+            </button>
+        </div>
+
+        <!-- Active Goals Section -->
+        <div class="space-y-6 mb-12" id="active">
+            <div class="bg-white shadow-lg rounded-lg p-6">
+                <h3 class="text-2xl font-semibold text-green-600">Vacation Fund</h3>
+                <p class="text-gray-600 mb-4">Save for an annual vacation with family and friends.</p>
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-lg text-gray-800 font-bold">FCFA 1,500 of FCFA 5,000</span>
+                    <span class="text-sm text-gray-500">Due by: 12/2025</span>
+                </div>
+                <div class="w-full bg-gray-200 h-2 rounded-full mb-4">
+                    <div class="bg-green-500 h-2 rounded-full" style="width: 30%"></div>
+                </div>
+                <div class="flex justify-between items-center">
+                    <a href="#" class="text-green-600 hover:underline" onclick="openModal()">View Details and Transactions</a>
+                </div>
+            </div>
+
+            <!-- Another Active Goal -->
+            <div class="bg-white shadow-lg rounded-lg p-6">
+                <h3 class="text-2xl font-semibold text-green-600">Emergency Fund</h3>
+                <p class="text-gray-600 mb-4">For unexpected expenses like medical or car repairs.</p>
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-lg text-gray-800 font-bold">FCFA 2,000 of FCFA 10,000</span>
+                    <span class="text-sm text-gray-500">Due by: 06/2026</span>
+                </div>
+                <div class="w-full bg-gray-200 h-2 rounded-full mb-4">
+                    <div class="bg-green-500 h-2 rounded-full" style="width: 20%"></div>
+                </div>
+                <div class="flex justify-between items-center">
+                    <a href="#" class="text-green-600 hover:underline" onclick="openModal()">View Details and Transactions</a>
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- Completed Goals Section -->
+        <div class="space-y-6 hidden" id="completed">
+            <div class="bg-white shadow-lg rounded-lg p-6">
+                <h3 class="text-2xl font-semibold text-green-600">New Car Fund</h3>
+                <p class="text-gray-600 mb-4">Savings goal for a new car purchase.</p>
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-lg text-gray-800 font-bold">FCFA 10,000 of FCFA 10,000</span>
+                    <span class="text-sm text-gray-500">Completed</span>
+                </div>
+                <div class="w-full bg-gray-200 h-2 rounded-full mb-4">
+                    <div class="bg-green-500 h-2 rounded-full" style="width: 100%"></div>
+                </div>
+                <div class="flex justify-between items-center">
+                    <a href="#" class="text-green-600 hover:underline" onclick="openModal()">View Details and Transactions</a>
+
+                </div>
+            </div>
+        </div>
+        
+       
+    </div>
+
+    <!-- Goal Detail Modal -->
+    <div id="goalDetailModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center hidden">
+        <div class="bg-white rounded-lg shadow-lg w-96 p-6 transform scale-95 transition-transform duration-200">
+            <h2 class="text-2xl font-semibold text-green-600 mb-4">Goal Description</h2>
+            <h3 class="text-xl font-semibold text-gray-800">Goal Name: New Car Fund</h3>
+            <p class="text-gray-600 mb-2">Description: This fund is for buying a new car.</p>
+            <p class="text-gray-700 font-medium mb-2">Target Amount: <span class="text-green-600 font-bold">FCFA 10,000</span></p>
+            <p class="text-gray-700 font-medium mb-4">Due Date: <span class="text-red-500">12/2023</span></p>
+
+            <div class="flex justify-between mt-4">
+                <button class="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition" onclick="openAddFundModal()">Add Funds</button>
+                <button class="py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-700 transition" onclick="openWithdrawFundModal()">Withdraw Funds</button>
+            </div>
+    
+            <button class="mt-4 py-2 px-4 w-full bg-gray-400 text-white rounded-lg hover:bg-gray-600 transition" onclick="closeModal()">Close</button>
+    
+            <h4 class="font-semibold text-gray-700 my-2">Transaction History</h4>
+            <ul class="bg-gray-100 rounded-md p-2 max-h-32 overflow-auto">
+                <li class="text-gray-600">Deposit: FCFA 500 - 01/02/2023</li>
+                <li class="text-gray-600">Deposit: FCFA 300 - 05/03/2023</li>
+                <li class="text-gray-600">Deposit: FCFA 200 - 10/04/2023</li>
+            </ul>
+    
+     
+        </div>
+    </div>
+    
+    <!-- Add Funds Modal -->
+    <div id="addFundModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center hidden">
+        <div class="bg-white rounded-lg shadow-lg w-96 p-6 transform scale-95 transition-transform duration-200">
+            <h2 class="text-2xl font-semibold text-blue-600 mb-4">Add Funds</h2>
+    
+            <label class="block text-gray-700 font-medium mb-2">Amount (FCFA)</label>
+            <input type="number" id="addAmount" class="w-full border border-gray-300 rounded-md p-2 mb-4 focus:ring-2 focus:ring-blue-500" placeholder="Enter amount">
+    
+            <label class="block text-gray-700 font-medium mb-2">Payment Method</label>
+            <select id="paymentMethodAdd" class="w-full border border-gray-300 rounded-md p-2 mb-4" onchange="togglePaymentFields('add')">
+                <option value="">Select Payment Method</option>
+                <option value="orangeMoney">Orange Money</option>
+                <option value="mtnMoney">MTN Mobile Money</option>
+                <option value="paypal">PayPal</option>
+            </select>
+    
+            <!-- Payment Fields -->
+            <div id="paymentFieldsAdd"></div>
+    
+            <button class="w-full py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition mt-4">Add Funds</button>
+            <button class="mt-2 w-full py-2 px-4 bg-gray-400 text-white rounded-lg hover:bg-gray-600 transition" onclick="closeAddFundModal()">Cancel</button>
+        </div>
+    </div>
+    
+    <!-- Withdraw Funds Modal -->
+    <div id="withdrawFundModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center hidden">
+        <div class="bg-white rounded-lg shadow-lg w-96 p-6 transform scale-95 transition-transform duration-200">
+            <h2 class="text-2xl font-semibold text-red-600 mb-4">Withdraw Funds</h2>
+    
+            <label class="block text-gray-700 font-medium mb-2">Amount : 100000 (FCFA)</label>
+
+            <label class="block text-gray-700 font-medium mb-2">Payment Method</label>
+            <select id="paymentMethodWithdraw" class="w-full border border-gray-300 rounded-md p-2 mb-4" onchange="togglePaymentFields('withdraw')">
+                <option value="">Select Payment Method</option>
+                <option value="orangeMoney">Orange Money</option>
+                <option value="mtnMoney">MTN Mobile Money</option>
+                <option value="paypal">PayPal</option>
+            </select>
+    
+            <!-- Payment Fields -->
+            <div id="paymentFieldsWithdraw"></div>
+    
+            <button class="w-full py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-700 transition mt-4">Withdraw</button>
+            <button class="mt-2 w-full py-2 px-4 bg-gray-400 text-white rounded-lg hover:bg-gray-600 transition" onclick="closeWithdrawFundModal()">Cancel</button>
+        </div>
+    </div>
+    
+
+    
+    <div id="createGoalModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center hidden">
+        <div class="bg-white rounded-lg w-96 p-6">
+            <h2 class="text-2xl font-semibold text-green-600 mb-4">Create New Goal</h2>
+            <form action="#" method="">
+                <div class="mb-4">
+                    <label for="goalName" class="block text-gray-700 font-medium">Goal Name</label>
+                    <input type="text" id="goalName" class="w-full px-4 py-2 border rounded-md" placeholder="Enter goal name" required>
+                </div>
+                <div class="mb-4">
+                    <label for="goalDes" class="block text-gray-700 font-medium">Goal Description</label>
+                    <textarea id="goalDes" class="w-full px-4 py-2 border rounded-md" placeholder="Enter goal description" require></textarea>
+                </div>
+                <div class="mb-4">
+                    <label for="goalAmount" class="block text-gray-700 font-medium">Target Amount</label>
+                    <input type="number" id="goalAmount" class="w-full px-4 py-2 border rounded-md" placeholder="Enter target amount" required>
+                </div>
+                <div class="mb-4">
+                    <label for="goalDate" class="block text-gray-700 font-medium">Target Date</label>
+                    <input type="date" id="goalDate" class="w-full px-4 py-2 border rounded-md" required>
+                </div>
+                <div class="flex justify-between gap-2">
+                    <button type="submit" class="w-full py-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-700 transition">Save Goal</button>
+                    <button id="cancelcreate" class="w-full py-3 bg-gray-200 text-gray-400 font-semibold rounded-lg  transition">Cancel</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    
+
+
+       
+    </main>
+
+    <script>
+         function togglePaymentFields(type) {
+            let method = document.getElementById(`paymentMethod${type.charAt(0).toUpperCase() + type.slice(1)}`).value;
+            let paymentFields = document.getElementById(`paymentFields${type.charAt(0).toUpperCase() + type.slice(1)}`);
+            
+            paymentFields.innerHTML = ''; // Clear previous inputs
+            
+            if (method === "orangeMoney" || method === "mtnMoney") {
+                paymentFields.innerHTML = `
+                    <label class="block text-gray-700 font-medium mb-2">Phone Number</label>
+                    <input type="text" class="w-full border border-gray-300 rounded-md p-2 mb-4 focus:ring-2 focus:ring-green-500" placeholder="Enter phone number">
+                `;
+            } else if (method === "paypal") {
+                paymentFields.innerHTML = `
+                    <label class="block text-gray-700 font-medium mb-2">PayPal Email</label>
+                    <input type="email" class="w-full border border-gray-300 rounded-md p-2 mb-4 focus:ring-2 focus:ring-blue-500" placeholder="Enter PayPal email">
+                `;
+            }
+        }
+        
+        function showTab(id){
+            const active= document.getElementById("active")
+            const completed= document.getElementById("completed")
+            if(id=="active"){
+                document.getElementById('activeTab').classList.remove('text-gray-700','bg-gray-300')
+                document.getElementById('activeTab').classList.add('text-white','bg-green-500')
+                document.getElementById('completedTab').classList.add('text-gray-700','bg-gray-300')
+                document.getElementById('completedTab').classList.remove('text-white','bg-green-500')
+                completed.classList.add('hidden')
+                active.classList.remove('hidden')
+
+            }else{
+                document.getElementById('activeTab').classList.add('text-gray-700','bg-gray-300')
+                document.getElementById('activeTab').classList.remove('text-white','bg-green-500')
+                document.getElementById('completedTab').classList.remove('text-gray-700','bg-gray-300')
+                document.getElementById('completedTab').classList.add('text-white','bg-green-500')
+                completed.classList.remove('hidden')
+                active.classList.add('hidden')
+            }
+        }
+    function openModal() {
+        document.getElementById("goalDetailModal").classList.remove("hidden");
+    }
+    function openAddFundModal() {
+        document.getElementById("goalDetailModal").classList.add("hidden");
+        document.getElementById("addFundModal").classList.remove("hidden");
+    }
+    function closeAddFundModal() {
+
+        document.getElementById("addFundModal").classList.add("hidden");
+    }
+    function openWithdrawFundModal() {
+        document.getElementById("goalDetailModal").classList.add("hidden");
+        document.getElementById("withdrawFundModal").classList.remove("hidden");
+    }
+    function closeWithdrawFundModal() {
+        document.getElementById("withdrawFundModal").classList.add("hidden");
+    }
+    function closeModal() {
+        document.getElementById("goalDetailModal").classList.add("hidden");
+    }
+
+
+        document.querySelector("#createbutton").addEventListener("click", () => {
+            document.getElementById("createGoalModal").classList.remove("hidden");
+        });
+        document.querySelector("#cancelcreate").addEventListener("click", () => {
+            document.getElementById("createGoalModal").classList.add("hidden");
+        });
+    </script>
+</body>
+</html>
