@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Save - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100">
+    
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-green-600 text-white p-4 transform -translate-x-full md:translate-x-0 transition-transform duration-300">
+        <!-- SmartSave Logo -->
+        <div class="flex items-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-12 h-12 text-white mr-3">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8V6a2 2 0 012-2h14a2 2 0 012 2v2M3 12h18M3 16h18v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-2z" />
+            </svg>
+            <h2 class="text-2xl font-bold">Smart Save</h2>
+        </div>
+        <hr>
+
+        <!-- Navigation Links -->
+        <div class="flex-col flex justify-between h-[85%]">
+            <nav class="space-y-4 mt-2">
+                <!-- Dashboard -->
+                <a href="/admin/dashboard" class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+    
+                <!-- Savings -->
+                <a href="/admin/usermanagement" class="flex items-center p-3 bg-green-700 rounded-lg">
+                    <i class="fas fa-users mr-3 text-xl"></i>
+                    <span>Users</span>
+                </a>
+    
+                <!-- Expenses -->
+                <a href="/admin/transactions" class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                    <i class="fas fa-wallet mr-3 text-xl"></i>
+                    <span>Transactions</span>
+                </a>
+
+                 <!-- Expenses -->
+                 <a href="/admin/financial" class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                    <i class="fas fa-user-graduate mr-3 text-xl"></i>
+                    <span>Financial Education</span>
+                </a>
+            </nav>
+    
+            <!-- Profile & Logout -->
+            <div class="mt-auto space-y-4">
+                <!-- Profile -->
+                <div class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                    <a href="/admin/myprofile" class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5 text-white mr-3">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zM12 16c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                        </svg>
+                        <span>Profile</span>
+                    </a>
+                  
+                </div>
+            </div>
+         </div>
+        
+    </aside>
+
+    <!-- Main Content -->
+     
+    <main class="md:ml-64 p-6">
+        <div>
+            <div class="mb-5 flex items-center md:justify-end justify-between">
+                <button id="menu-btn" class="md:hidden p-2 mx-2  text-3xl text-green-600 rounded-full">
+                    ☰
+                </button>
+                <div class="flex items-center justify-end">
+                    <div class="flex items-center mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"  viewBox="0 0 640 512" class="w-12 h-12 text-white bg-green-600 rounded-full p-2 mr-2">
+                            <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c1.8 0 3.5-.2 5.3-.5c-76.3-55.1-99.8-141-103.1-200.2c-16.1-4.8-33.1-7.3-50.7-7.3l-91.4 0zm308.8-78.3l-120 48C358 277.4 352 286.2 352 296c0 63.3 25.9 168.8 134.8 214.2c5.9 2.5 12.6 2.5 18.5 0C614.1 464.8 640 359.3 640 296c0-9.8-6-18.6-15.1-22.3l-120-48c-5.7-2.3-12.1-2.3-17.8 0zM591.4 312c-3.9 50.7-27.2 116.7-95.4 149.7l0-187.8L591.4 312z"/>
+                        </svg>
+                        <div class="flex flex-col">
+                            <div class="text-sm md:text-base text-gray-800 font-medium">John Doe</div>
+                            <span class="text-xs bg-green-600 text-white rounded-full px-2 w-fit">Admin</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     
+        <!-- Add to your existing pages -->
+<div id="userDetail" class="container mx-auto px-2 py-2">
+    <!-- Back Button -->
+    <button class="mb-4 text-green-600 hover:text-blue-800">
+        <a href="/admin/usermanagement">
+            <i class="fas fa-arrow-left mr-2"></i>
+        Back to Users
+        </a>
+    </button>
+
+    <!-- User Profile Header -->
+    <div class="bg-white rounded-lg shadow p-6 mb-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <h2 class="text-2xl font-bold" id="userName">John Doe</h2>
+                <p class="text-gray-600" id="userEmail">john@example.com</p>
+                <div class="mt-2">
+                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Active</span>
+                </div>
+            </div>
+            <div class="text-right">
+                <p class="text-gray-600">Joined: <span id="joinDate">2023-01-15</span></p>
+                <p class="text-gray-600">Last Activity: <span id="lastActive">2 hours ago</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabs Navigation -->
+    <div class="border-b border-gray-200 mb-6">
+        <nav class="flex space-x-8">
+            <button data-tab="overview" class="tab-link py-4 px-1 border-b-2 font-medium text-sm text-green-600 border-green-600">
+                Overview
+            </button>
+            <button data-tab="transactions" class="tab-link py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-gray-700 border-transparent">
+                Transactions
+            </button>
+            <button data-tab="debts" class="tab-link py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-gray-700 border-transparent">
+                Debts
+            </button>
+            <button data-tab="savings" class="tab-link py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-gray-700 border-transparent">
+                Savings Goals
+            </button>
+        </nav>
+    </div>
+
+    <!-- Tab Contents -->
+    <div id="overview" class="tab-content">
+        <div class="grid md:grid-cols-2 gap-6">
+            <!-- Expenses Summary -->
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h3 class="text-lg font-semibold mb-4">Monthly Expenses</h3>
+                <div class="h-64">
+                    <canvas id="expenseChart" class="mx-auto"></canvas>
+                </div>
+            </div>
+
+            <!-- Financial Summary -->
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h3 class="text-lg font-semibold mb-4">Financial Summary</h3>
+                <div class="space-y-4">
+                    <div class="flex justify-between">
+                        <span>Monthly Expenses:</span>
+                        <span class="font-semibold">FCFA 500,000</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Total Savings:</span>
+                        <span class="font-semibold">FCFA 1,200,000</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Active Debts:</span>
+                        <span class="font-semibold ">FCFA 500,000</span>
+                    </div>
+                 
+                    <div class="flex justify-between">
+                        <span>Amount Withdrawn:</span>
+                        <span class="font-semibold ">FCFA 500,000</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Amount Deposited:</span>
+                        <span class="font-semibold">FCFA 500,000</span>
+                    </div>
+                    <div class="flex justify-between text-green-500">
+                        <span>Amount Left:</span>
+                        <span class="font-semibold">FCFA 500,000</span>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Transactions Tab -->
+    <div id="transactions" class="tab-content hidden">
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+            <table class="min-w-full">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Date</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Type</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Amount</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Description</th>
+                    </tr>
+                </thead>
+                <tbody id="userTransactions" class="divide-y divide-gray-200">
+                    <!-- Transactions populated via JS -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Debts Tab -->
+    <div id="debts" class="tab-content hidden">
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+            <table class="min-w-full">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Creditor</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Amount</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Due Date</th>
+                        <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Status</th>
+                    </tr>
+                </thead>
+                <tbody id="userDebts" class="divide-y divide-gray-200">
+                    <!-- Debts populated via JS -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Savings Goals Tab -->
+    <div id="savings" class="tab-content hidden">
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h3 class="text-lg font-semibold mb-4">Active Goals</h3>
+                <div id="activeGoals" class="space-y-4">
+                    <!-- Active goals cards -->
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h3 class="text-lg font-semibold mb-4">Completed Goals</h3>
+                <div id="completedGoals" class="space-y-4">
+                    <!-- Completed goals cards -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+      
+    </main>
+
+    <script src="../assets/js/sidebar.js"></script>
+    <script>
+        // Add to your existing JavaScript
+        
+        // Sample User Data Structure
+        let users = [{
+            id: 1,
+            name: "John Doe",
+            email: "john@example.com",
+            status: "Active",
+            plan: "Premium",
+            joinDate: "2023-01-15",
+            lastActive: "2023-07-20",
+            expenses: [
+                { category: "Housing", amount: 500000 },
+                { category: "Food", amount: 250000 },
+                { category: "Transport", amount: 150000 }
+            ],
+            debts: [
+                { creditor: "Bank Loan", amount: 500000, dueDate: "2023-12-01", status: "Active" }
+            ],
+            savings: [
+                { name: "Emergency Fund", target: 1000000, current: 750000, status: "Active" },
+                { name: "Car Purchase", target: 5000000, current: 5000000, status: "Completed" }
+            ],
+            transactions: [
+                { date: "2023-07-20", type: "Deposit", amount: 200000, description: "Saving - Outing" },
+                { date: "2023-07-19", type: "Withdrawal", amount: 50000, description: "Saving - New car " }
+            ]
+        }];
+       
+       populateUserData(users[0]);
+       setupTabs();
+       
+        
+        function populateUserData(user) {
+            // Basic Info
+            document.getElementById('userName').textContent = user.name;
+            document.getElementById('userEmail').textContent = user.email;
+            document.getElementById('joinDate').textContent = user.joinDate;
+            document.getElementById('lastActive').textContent = user.lastActive;
+        
+            // Transactions
+            const transactionsBody = document.getElementById('userTransactions');
+            transactionsBody.innerHTML = user.transactions.map(t => `
+                <tr>
+                    <td class="px-6 py-4">${t.date}</td>
+                    <td class="px-6 py-4">
+                        <span class="px-2 py-1 text-sm rounded-full ${t.type === 'Deposit' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                            ${t.type}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4">FCFA ${t.amount.toLocaleString()}</td>
+                    <td class="px-6 py-4">${t.description}</td>
+                </tr>
+            `).join('');
+        
+            // Debts
+            const debtsBody = document.getElementById('userDebts');
+            debtsBody.innerHTML = user.debts.map(d => `
+                <tr>
+                    <td class="px-6 py-4">${d.creditor}</td>
+                    <td class="px-6 py-4">FCFA ${d.amount.toLocaleString()}</td>
+                    <td class="px-6 py-4">${d.dueDate}</td>
+                    <td class="px-6 py-4">
+                        <span class="px-2 py-1 text-sm rounded-full ${d.status === 'Active' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800'}">
+                            ${d.status}
+                        </span>
+                    </td>
+                </tr>
+            `).join('');
+        
+            // Savings Goals
+            const activeGoals = document.getElementById('activeGoals');
+            const completedGoals = document.getElementById('completedGoals');
+            
+            activeGoals.innerHTML = user.savings
+                .filter(s => s.status === 'Active')
+                .map(s => savingsGoalCard(s))
+                .join('');
+            
+            completedGoals.innerHTML = user.savings
+                .filter(s => s.status === 'Completed')
+                .map(s => savingsGoalCard(s))
+                .join('');
+        
+            // Expense Chart
+            renderExpenseChart(user.expenses);
+        }
+        
+        function savingsGoalCard(goal) {
+            const progress = (goal.current / goal.target) * 100;
+            return `
+                <div class="border rounded-lg p-4">
+                    <div class="flex justify-between mb-2">
+                        <h4 class="font-medium">${goal.name}</h4>
+                        <span class="text-sm">${goal.status}</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+                        <div class="bg-green-600 rounded-full h-2" style="width: ${progress}%"></div>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span>FCFA ${goal.current.toLocaleString()}</span>
+                        <span>FCFA ${goal.target.toLocaleString()}</span>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function renderExpenseChart(expenses) {
+            const ctx = document.getElementById('expenseChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: expenses.map(e => e.category),
+                    datasets: [{
+                        data: expenses.map(e => e.amount),
+                        backgroundColor: ['#3B82F6', '#10B981', '#F59E0B']
+                    }]
+                }
+            });
+        }
+        
+        // Tab functionality
+        function setupTabs() {
+            const tabs = document.querySelectorAll('.tab-link');
+            const tabContents = document.querySelectorAll('.tab-content');
+        
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    
+                    // Remove active classes
+                    tabs.forEach(t => {
+                        t.classList.remove('text-green-600', 'border-green-600');
+                        t.classList.add('text-gray-500', 'border-transparent');
+                    });
+                    
+                    // Add active class to clicked tab
+                    tab.classList.add('text-green-600', 'border-green-600');
+                    tab.classList.remove('text-gray-500', 'border-transparent');
+        
+                    // Hide all tab contents
+                    tabContents.forEach(content => content.classList.add('hidden'));
+                    
+                    // Show selected tab content
+                    document.getElementById(tab.dataset.tab).classList.remove('hidden');
+                });
+            });
+        }
+        
+        // Update your user management table rows to include:
+        // <button onclick="showUserDetail(${user.id})" class="text-green-600 hover:text-blue-900">View</button>
+        </script>
+   
+      
+</body>
+</html>

@@ -10,13 +10,10 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="bg-gray-100">
-    <!-- Mobile Menu Button -->
-    <button id="menu-btn" class="md:hidden p-2 text-white bg-green-600 rounded-full">
-        ☰
-    </button>
+  
 
     <!-- Sidebar -->
-    <aside class="hidden md:block fixed left-0 top-0 h-full w-64 bg-green-600 text-white p-4">
+    <aside id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-green-600 text-white p-4 transform -translate-x-full md:translate-x-0 transition-transform duration-300">
         <!-- SmartSave Logo -->
         <div class="flex items-center mb-4">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-12 h-12 text-white mr-3">
@@ -27,10 +24,10 @@
         <hr>
 
         <!-- Navigation Links -->
-         <div class="flex-col flex justify-between h-[85%]">
+        <div class="flex-col flex justify-between h-[85%]">
             <nav class="space-y-4 mt-2">
                 <!-- Dashboard -->
-                <a href="#" class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                <a href="/user/dashboard" class="flex items-center p-3 hover:bg-green-700 rounded-lg">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
                     </svg>
@@ -38,25 +35,25 @@
                 </a>
     
                 <!-- Savings -->
-                <a href="#" class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                <a href="/user/savings" class="flex items-center p-3 hover:bg-green-700 rounded-lg">
                     <i class="fas fa-piggy-bank mr-3 text-xl"></i>
                     <span>Savings</span>
                 </a>
     
                 <!-- Expenses -->
-                <a href="#" class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                <a href="/user/myexpenses" class="flex items-center p-3 hover:bg-green-700 rounded-lg">
                     <i class="fas fa-wallet mr-3 text-xl"></i>
                     <span>Expenses</span>
                 </a>
     
                 <!-- Debt Management -->
-                <a href="#" class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                <a href="/user/debt_control" class="flex items-center p-3 hover:bg-green-700 rounded-lg">
                     <i class="fas fa-chart-line mr-3 text-xl"></i>
                     <span>Debt Management</span>
                 </a>
 
                  <!-- Expenses -->
-                 <a href="#" class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                 <a href="/user/education" class="flex items-center p-3 hover:bg-green-700 rounded-lg">
                     <i class="fas fa-user-graduate mr-3 text-xl"></i>
                     <span>Financial Education</span>
                 </a>
@@ -66,10 +63,13 @@
             <div class="mt-auto space-y-4">
                 <!-- Profile -->
                 <div class="flex items-center p-3 bg-green-700 rounded-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5 text-white mr-3">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zM12 16c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                    </svg>
-                    <span>Profile</span>
+                    <a href="/user/myprofile" class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5 text-white mr-3">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zM12 16c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                        </svg>
+                        <span>Profile</span>
+                    </a>
+                  
                 </div>
     
                 <!-- Logout -->
@@ -88,14 +88,19 @@
      
     <main class="md:ml-64 p-6">
         <div>
-            <div class="flex items-center justify-end">
-                <div class="flex items-center mr-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-12 h-12 text-white bg-green-500 rounded-full p-2 mr-2">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zM12 16c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                    </svg>
-                    <div class="flex flex-col">
-                        <div class="text-sm md:text-base text-gray-800 font-medium">John Doe</div>
-                        <span class="text-xs">Member Since Febuary 2024</span>
+            <div class="mb-5 flex items-center md:justify-end justify-between">
+                <button id="menu-btn" class="md:hidden p-2 mx-2  text-3xl text-green-600 rounded-full">
+                    ☰
+                </button>
+                <div class="flex items-center justify-end">
+                    <div class="flex items-center mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-12 h-12 text-white bg-green-600 rounded-full p-2 mr-2">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zM12 16c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                        </svg>
+                        <div class="flex flex-col">
+                            <div class="text-sm md:text-base text-gray-800 font-medium">John Doe</div>
+                            <span class="text-xs">Member Since Febuary 2024</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -142,6 +147,7 @@
       
     </main>
 
+    <script src="../assets/js/sidebar.js"></script>
     <script>
         function updateProfile() {
             const newName = document.getElementById('fullName').value;

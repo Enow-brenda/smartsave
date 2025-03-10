@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Save - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100">
+    
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-green-600 text-white p-4 transform -translate-x-full md:translate-x-0 transition-transform duration-300">
+        <!-- SmartSave Logo -->
+        <div class="flex items-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-12 h-12 text-white mr-3">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8V6a2 2 0 012-2h14a2 2 0 012 2v2M3 12h18M3 16h18v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-2z" />
+            </svg>
+            <h2 class="text-2xl font-bold">Smart Save</h2>
+        </div>
+        <hr>
+
+        <!-- Navigation Links -->
+        <div class="flex-col flex justify-between h-[85%]">
+            <nav class="space-y-4 mt-2">
+                <!-- Dashboard -->
+                <a href="/admin/dashboard" class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+    
+                <!-- Savings -->
+                <a href="/admin/usermanagement" class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                    <i class="fas fa-users mr-3 text-xl"></i>
+                    <span>Users</span>
+                </a>
+    
+                <!-- Expenses -->
+                <a href="/admin/transactions" class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                    <i class="fas fa-wallet mr-3 text-xl"></i>
+                    <span>Transactions</span>
+                </a>
+
+                 <!-- Expenses -->
+                 <a href="/admin/financial" class="flex items-center p-3 bg-green-700 rounded-lg">
+                    <i class="fas fa-user-graduate mr-3 text-xl"></i>
+                    <span>Financial Education</span>
+                </a>
+            </nav>
+    
+            <!-- Profile & Logout -->
+            <div class="mt-auto space-y-4">
+                <!-- Profile -->
+                <div class="flex items-center p-3 hover:bg-green-700 rounded-lg">
+                    <a href="/admin/myprofile" class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5 text-white mr-3">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zM12 16c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                        </svg>
+                        <span>Profile</span>
+                    </a>
+                  
+                </div>
+            </div>
+         </div>
+        
+    </aside>
+
+    <!-- Main Content -->
+     
+    <main class="md:ml-64 p-6">
+        <div>
+            <div class="mb-5 flex items-center md:justify-end justify-between">
+                <button id="menu-btn" class="md:hidden p-2 mx-2  text-3xl text-green-600 rounded-full">
+                    ☰
+                </button>
+                <div class="flex items-center justify-end">
+                    <div class="flex items-center mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"  viewBox="0 0 640 512" class="w-12 h-12 text-white bg-green-600 rounded-full p-2 mr-2">
+                            <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c1.8 0 3.5-.2 5.3-.5c-76.3-55.1-99.8-141-103.1-200.2c-16.1-4.8-33.1-7.3-50.7-7.3l-91.4 0zm308.8-78.3l-120 48C358 277.4 352 286.2 352 296c0 63.3 25.9 168.8 134.8 214.2c5.9 2.5 12.6 2.5 18.5 0C614.1 464.8 640 359.3 640 296c0-9.8-6-18.6-15.1-22.3l-120-48c-5.7-2.3-12.1-2.3-17.8 0zM591.4 312c-3.9 50.7-27.2 116.7-95.4 149.7l0-187.8L591.4 312z"/>
+                        </svg>
+                        <div class="flex flex-col">
+                            <div class="text-sm md:text-base text-gray-800 font-medium">John Doe</div>
+                            <span class="text-xs bg-green-600 text-white rounded-full px-2 w-fit">Admin</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mb-4">
+            <h2 class="text-2xl font-bold text-green-600">Resources Management</h2>
+            <p class="text-gray-500">Manage all financial Resources in the system</p>
+        </div>
+        <div id="financialResources" class="container mx-auto px-2 py-2 ">
+            <!-- Page Header -->
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Financial Resources</h2>
+                <button onclick="openResourceModal()" 
+                        class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-blue-700 flex items-center">
+                    <i class="fas fa-plus mr-2"></i>
+                    Add Resource
+                </button>
+            </div>
+        
+            <!-- Resources Table -->
+            <div class="bg-white rounded-lg shadow overflow-hidden">
+                <table class="min-w-full">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Title</th>
+                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Type</th>
+                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Topic</th>
+                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Description</th>
+                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Resource Link</th>
+                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Image Link</th>
+                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resourcesTable" class="divide-y divide-gray-200">
+                        <!-- Resources populated via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+      
+    </main>
+    <div id="resourceModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center">
+        <div class="bg-white rounded-lg p-6 w-full max-w-xl">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold">Add Financial Resource</h3>
+                <button onclick="closeResourceModal()" class="text-gray-500 hover:text-gray-700">✕</button>
+            </div>
+    
+            <form id="resourceForm">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Title *</label>
+                        <input type="text" id="resourceTitle" required
+                               class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2">
+                    </div>
+    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Description *</label>
+                        <textarea id="resourceDescription" required rows="3"
+                                  class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"></textarea>
+                    </div>
+    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Type *</label>
+                            <select id="resourceType" required
+                                    class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2">
+                                <option value="">Select Type</option>
+                                <option value="article">Article</option>
+                                <option value="video">Video</option>
+                            </select>
+                        </div>
+    
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Topic *</label>
+                            <select id="resourceTopic" required
+                                    class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2">
+                                <option value="">Select Topic</option>
+                                <option value="saving">Saving</option>
+                                <option value="investment">Investment</option>
+                                <option value="budgeting">Budgeting</option>
+                            </select>
+                        </div>
+                    </div>
+    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">URL *</label>
+                        <input type="url" id="resourceUrl" required
+                               class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
+                               placeholder="https://example.com">
+                    </div>
+                    <div id="imageUrlField" >
+                        <label class="block text-sm font-medium text-gray-700">Image URL * (Articles only)</label>
+                        <input type="url" id="resourceImageUrl" 
+                               class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
+                               placeholder="https://example.com/image.jpg">
+                    </div>
+    
+                    <div class="mt-6 flex justify-end space-x-3">
+                        <button type="button" onclick="closeResourceModal()"
+                                class="px-4 py-2 border rounded-md hover:bg-gray-50">
+                            Cancel
+                        </button>
+                        <button type="submit" 
+                                class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-blue-700">
+                            Add Resource
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+   
+
+    <script src="../assets/js/sidebar.js"></script>
+    <script>
+        // Add to your existing JavaScript
+        
+        let financialResources = [
+            {
+                title: "Introduction to Saving",
+                description: "Basic guide to personal savings strategies",
+                type: "article",
+                topic: "saving",
+                url: "https://example.com/saving-101",
+                imageUrl: "https://example.com/saving-101"
+            },
+            {
+                title: "Stock Market Basics",
+                description: "Video explaining stock market fundamentals",
+                type: "video",
+                topic: "investment",
+                url: "https://example.com/stock-market"
+            }
+        ];
+        
+        // Modal Controls
+        function openResourceModal() {
+            document.getElementById('resourceModal').classList.remove('hidden');
+            document.getElementById('resourceModal').classList.add('flex');
+        }
+        
+        function closeResourceModal() {
+            document.getElementById('resourceModal').classList.add('hidden');
+            document.getElementById('resourceForm').reset();
+        }
+// Render Resources Table
+function renderResources() {
+    const tbody = document.getElementById('resourcesTable');
+    tbody.innerHTML = financialResources.map(resource => `
+        <tr>
+            <td class="px-6 py-4 font-medium">${resource.title}</td>
+            <td class="px-6 py-4">
+                <span class="px-2 py-1 text-sm rounded-full ${
+                    resource.type === 'article' ? 'bg-blue-100 text-blue-800' : 'bg-red-100 text-red-800'
+                }">
+                    ${resource.type.charAt(0).toUpperCase() + resource.type.slice(1)}
+                </span>
+            </td>
+            <td class="px-6 py-4">
+                <span class="px-2 py-1 text-sm rounded-full bg-gray-100 text-gray-800">
+                    ${resource.topic.charAt(0).toUpperCase() + resource.topic.slice(1)}
+                </span>
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-600">${resource.description}</td>
+            <td class="px-6 py-4 text-sm text-gray-600">${resource.url}</td>
+            <td class="px-6 py-4 text-sm text-gray-600">${resource.type === "article" ? resource.imageUrl : "No Image"}</td>
+            <td class="px-6 py-4">
+               
+                
+                <button
+                   class="text-green-600 hover:text-blue-800 underline" onclick="openResourceModal(${resource.id})">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button
+                   class="text-red-600 hover:text-blue-800 underline">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </td>
+        </tr>
+    `).join('');
+}
+
+// Initial render
+document.addEventListener('DOMContentLoaded', renderResources);
+</script>        
+   
+      
+</body>
+</html>
