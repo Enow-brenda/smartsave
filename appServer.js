@@ -59,5 +59,5 @@ app.get('/admin/myprofile', (req, res) => {
     res.sendFile(path.join(__dirname, 'frontend/admin/profile.html'));
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3005;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

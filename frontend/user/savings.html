@@ -8,6 +8,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../assets/js/db.js"></script>
+    <script src="../assets/js/cookieManager.js"></script>
+    <script src="../assets/js/getUserInfo.js"></script>
    
 </head>
 <body class="bg-gray-100">
@@ -98,8 +101,8 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zM12 16c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
                     </svg>
                     <div class="flex flex-col">
-                        <div class="text-sm md:text-base text-gray-800 font-medium">John Doe</div>
-                        <span class="text-xs">Member Since Febuary 2024</span>
+                        <div class="text-sm md:text-base text-gray-800 font-medium" id="username">Loading...</div>
+                        <span class="text-xs" id="joinedDate">Loading...</span>
                     </div>
                 </div>
             </div>
@@ -131,56 +134,12 @@
 
         <!-- Active Goals Section -->
         <div class="space-y-6 mb-12" id="active">
-            <div class="bg-white shadow-lg rounded-lg p-6">
-                <h3 class="text-2xl font-semibold text-green-600">Vacation Fund</h3>
-                <p class="text-gray-600 mb-4">Save for an annual vacation with family and friends.</p>
-                <div class="flex justify-between items-center mb-4">
-                    <span class="text-lg text-gray-800 font-bold">FCFA 1,500 of FCFA 5,000</span>
-                    <span class="text-sm text-gray-500">Due by: 12/2025</span>
-                </div>
-                <div class="w-full bg-gray-200 h-2 rounded-full mb-4">
-                    <div class="bg-green-600 h-2 rounded-full" style="width: 30%"></div>
-                </div>
-                <div class="flex justify-between items-center">
-                    <a href="#" class="text-green-600 hover:underline" onclick="openModal()">View Details and Transactions</a>
-                </div>
-            </div>
-
-            <!-- Another Active Goal -->
-            <div class="bg-white shadow-lg rounded-lg p-6">
-                <h3 class="text-2xl font-semibold text-green-600">Emergency Fund</h3>
-                <p class="text-gray-600 mb-4">For unexpected expenses like medical or car repairs.</p>
-                <div class="flex justify-between items-center mb-4">
-                    <span class="text-lg text-gray-800 font-bold">FCFA 2,000 of FCFA 10,000</span>
-                    <span class="text-sm text-gray-500">Due by: 06/2026</span>
-                </div>
-                <div class="w-full bg-gray-200 h-2 rounded-full mb-4">
-                    <div class="bg-green-600 h-2 rounded-full" style="width: 20%"></div>
-                </div>
-                <div class="flex justify-between items-center">
-                    <a href="#" class="text-green-600 hover:underline" onclick="openModal()">View Details and Transactions</a>
-                    
-                </div>
-            </div>
+            <h2 id="defaultactive" class="font-bold text-center text-green-600"> No active Goal </h2>
         </div>
 
         <!-- Completed Goals Section -->
         <div class="space-y-6 hidden" id="completed">
-            <div class="bg-white shadow-lg rounded-lg p-6">
-                <h3 class="text-2xl font-semibold text-green-600">New Car Fund</h3>
-                <p class="text-gray-600 mb-4">Savings goal for a new car purchase.</p>
-                <div class="flex justify-between items-center mb-4">
-                    <span class="text-lg text-gray-800 font-bold">FCFA 10,000 of FCFA 10,000</span>
-                    <span class="text-sm text-gray-500">Completed</span>
-                </div>
-                <div class="w-full bg-gray-200 h-2 rounded-full mb-4">
-                    <div class="bg-green-600 h-2 rounded-full" style="width: 100%"></div>
-                </div>
-                <div class="flex justify-between items-center">
-                    <a href="#" class="text-green-600 hover:underline" onclick="openModal()">View Details and Transactions</a>
-
-                </div>
-            </div>
+            <h2 id="defaultcompleted" class="font-bold text-center text-green-600"> No completed Goal Found</h2>
         </div>
         
        
@@ -188,29 +147,7 @@
 
     <!-- Goal Detail Modal -->
     <div id="goalDetailModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center hidden">
-        <div class="bg-white rounded-lg shadow-lg w-96 p-6 transform scale-95 transition-transform duration-200">
-            <h2 class="text-2xl font-semibold text-green-600 mb-4">Goal Description</h2>
-            <h3 class="text-xl font-semibold text-gray-800">Goal Name: New Car Fund</h3>
-            <p class="text-gray-600 mb-2">Description: This fund is for buying a new car.</p>
-            <p class="text-gray-700 font-medium mb-2">Target Amount: <span class="text-green-600 font-bold">FCFA 10,000</span></p>
-            <p class="text-gray-700 font-medium mb-4">Due Date: <span class="text-red-500">12/2023</span></p>
-
-            <div class="flex justify-between mt-4">
-                <button class="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition" onclick="openAddFundModal()">Add Funds</button>
-                <button class="py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-700 transition" onclick="openWithdrawFundModal()">Withdraw Funds</button>
-            </div>
-    
-            <button class="mt-4 py-2 px-4 w-full bg-gray-400 text-white rounded-lg hover:bg-gray-600 transition" onclick="closeModal()">Close</button>
-    
-            <h4 class="font-semibold text-gray-700 my-2">Transaction History</h4>
-            <ul class="bg-gray-100 rounded-md p-2 max-h-32 overflow-auto">
-                <li class="text-gray-600">Deposit: FCFA 500 - 01/02/2023</li>
-                <li class="text-gray-600">Deposit: FCFA 300 - 05/03/2023</li>
-                <li class="text-gray-600">Deposit: FCFA 200 - 10/04/2023</li>
-            </ul>
-    
-     
-        </div>
+        
     </div>
     
     <!-- Add Funds Modal -->
@@ -232,7 +169,7 @@
             <!-- Payment Fields -->
             <div id="paymentFieldsAdd"></div>
     
-            <button class="w-full py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition mt-4">Add Funds</button>
+            <button class="w-full py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition mt-4" onclick="withdraw()">Add Funds</button>
             <button class="mt-2 w-full py-2 px-4 bg-gray-400 text-white rounded-lg hover:bg-gray-600 transition" onclick="closeAddFundModal()">Cancel</button>
         </div>
     </div>
@@ -298,7 +235,9 @@
     </main>
     <script src="../assets/js/sidebar.js"></script>
     <script>
-         
+         const token = localStorage.getItem('token')
+         const userid= localStorage.getItem('userid')
+        getuser_info()
          function togglePaymentFields(type) {
             let method = document.getElementById(`paymentMethod${type.charAt(0).toUpperCase() + type.slice(1)}`).value;
             let paymentFields = document.getElementById(`paymentFields${type.charAt(0).toUpperCase() + type.slice(1)}`);
@@ -338,10 +277,76 @@
                 active.classList.add('hidden')
             }
         }
-    function openModal() {
-        document.getElementById("goalDetailModal").classList.remove("hidden");
+    async function getTransactions(id){
+        try{
+            const response = await fetch(`http://localhost:3000/api/custom-api/${dbtype}/${dbname}/users/${userid}/transactions?relatedField=user_id&&saving_id=${id}`, {
+                method: 'GET',  
+                    headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                    },
+                    credentials: "include", // 🔥 Sends and receives cookies
+                    
+            });
+            const transactions = await response.json()
+            console.log(transactions)
+            
+            return transactions
+            
+        }catch(error){
+            console.log(error)
+        }
     }
-    function openAddFundModal() {
+    async function openModal(goalString) {
+        const goal = JSON.parse(decodeURIComponent(goalString));
+        
+        const transactions = await getTransactions(goal.id)
+       
+
+        document.getElementById("goalDetailModal").classList.remove("hidden");
+        document.getElementById("goalDetailModal").innerHTML = 
+        `
+        <div class="bg-white rounded-lg shadow-lg w-96 p-6 transform scale-95 transition-transform duration-200">
+            <h2 class="text-2xl font-semibold text-green-600 mb-4">Goal Description</h2>
+            <h3 class="text-xl font-semibold text-gray-800">${goal.goalname}</h3>
+            <p class="text-gray-600 mb-2">${goal.description}</p>
+            <p class="text-gray-700 font-medium mb-2">Target Amount: <span class="text-green-600 font-bold">FCFA ${goal.targetAmount}</span></p>
+            <p class="text-gray-700 font-medium mb-4">Due Date: <span class="text-red-500">${goal.target_date.split('T')[0]}</span></p>
+
+            <div class="flex justify-between mt-4">
+                ${goal.status=="active" ? 
+                `<button class="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition" onclick="openAddFundModal(${goal.id})">Add Funds</button>`
+            :``}
+                ${goal.status=="completed" ? 
+                `<button class="py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-700 transition" onclick="openWithdrawFundModal(${goal.id})">Withdraw Funds</button>`
+            :``}
+            ${goal.status=="withdrawn" ? 
+                `<button class="py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-700 transition" onclick="openWithdrawFundModal(${goal.id})">Delete Saving Goal</button>`
+            :``}
+                
+                
+            </div>
+    
+            <button class="mt-4 py-2 px-4 w-full bg-gray-400 text-white rounded-lg hover:bg-gray-600 transition" onclick="closeModal()">Close</button>
+    
+            <h4 class="font-semibold text-gray-700 my-2">Transaction History</h4>
+            <ul class="bg-gray-100 rounded-md p-2 max-h-32 overflow-auto">
+              ${transactions.map(element => 
+                `<li class="text-gray-600">${element.type}: FCFA ${element.amount} - ${element.transaction_date.split('T')[0]}</li>`
+            ).join('')}
+                
+            </ul>
+    
+     
+        </div>
+        `
+    }
+    async function withdraw(id,max_amount){
+
+    }
+
+    function openAddFundModal(id,max_amount) {
+        
         document.getElementById("goalDetailModal").classList.add("hidden");
         document.getElementById("addFundModal").classList.remove("hidden");
     }
@@ -349,7 +354,7 @@
 
         document.getElementById("addFundModal").classList.add("hidden");
     }
-    function openWithdrawFundModal() {
+    function openWithdrawFundModal(id) {
         document.getElementById("goalDetailModal").classList.add("hidden");
         document.getElementById("withdrawFundModal").classList.remove("hidden");
     }
@@ -367,6 +372,65 @@
         document.querySelector("#cancelcreate").addEventListener("click", () => {
             document.getElementById("createGoalModal").classList.add("hidden");
         });
+        async function get_goals(){
+            completed = []
+            active = []
+           
+            
+            try{
+                const response = await fetch(`http://localhost:3000/api/custom-api/${dbtype}/${dbname}/users/${userid}/savings?relatedField=user_id`, {
+                    method: 'GET',  
+                        headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                        },
+                        credentials: "include", // 🔥 Sends and receives cookies
+                        
+                });
+                const savingData = await response.json()
+               
+                if(savingData){
+                    for(let data of savingData){
+                        console.log(data)
+                        if(data.status=="active"){
+                            active.push(data)
+                            displayGoal(data,"active")
+                        }else{
+                            completed.push(data)
+                            displayGoal(data,"completed")
+                        }
+                    }
+                   
+
+                }
+                
+            }catch(error){
+                console.log(error)
+            }
+        }
+        get_goals()
+        function displayGoal(goal,type){
+            const container = document.getElementById(type)
+            const defaultS = document.getElementById("default"+type).classList.add('hidden');
+            const percerntage = (goal.amount/goal.targetAmount)*100
+            container.innerHTML += `
+             <div class="bg-white shadow-lg rounded-lg p-6">
+                <h3 class="text-2xl font-semibold text-green-600">${goal.goalname}</h3>
+                <p class="text-gray-600 mb-4">${goal.description}</p>
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-lg text-gray-800 font-bold">FCFA ${goal.amount} of FCFA ${goal.targetAmount}</span>
+                    <span class="text-sm text-gray-500">${goal.status === "active" ? 'Due by '+ goal.target_date.split('T')[0] : goal.status.toUpperCase()}</span>
+                </div>
+                <div class="w-full bg-gray-200 h-2 rounded-full mb-4">
+                    <div class="bg-green-600 h-2 rounded-full" style="width: ${percerntage}"></div>
+                </div>
+                <div class="flex justify-between items-center">
+                    <a href="#" class="text-green-600 hover:underline" onclick="openModal('${encodeURIComponent(JSON.stringify(goal))}')">View Details and Transactions</a>
+
+                </div>
+            </div>
+            `
+        }
     </script>
 </body>
 </html>

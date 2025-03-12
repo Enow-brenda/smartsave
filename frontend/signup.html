@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Save - Sign Up</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="assets/js/db.js"></script>
 </head>
 <body class="bg-green-50 min-h-screen flex items-center">
     <div class="max-w-md w-full mx-auto p-6 bg-white rounded-lg shadow-md">
@@ -12,20 +13,20 @@
             <h1 class="text-3xl font-bold text-green-600">Create Account</h1>
         </div>
 
-        <form id="signupForm" class="space-y-4">
+        <form id="signupForm" method="post" class="space-y-4" onsubmit="return createAccount(event)">
             <div>
-                <label class="block text-gray-700">Full Name</label>
-                <input type="text" class="w-full p-2 border rounded-md mt-1 focus:ring-2 focus:ring-green-500">
+                <label class="block text-gray-700">User Name</label>
+                <input type="text" name="username" id="username" class="w-full p-2 border rounded-md mt-1 focus:ring-2 focus:ring-green-500">
             </div>
             
             <div>
                 <label class="block text-gray-700">Email</label>
-                <input type="email" class="w-full p-2 border rounded-md mt-1 focus:ring-2 focus:ring-green-500">
+                <input type="email" name="email" id="email" class="w-full p-2 border rounded-md mt-1 focus:ring-2 focus:ring-green-500">
             </div>
 
             <div>
                 <label class="block text-gray-700">Password</label>
-                <input type="password" class="w-full p-2 border rounded-md mt-1 focus:ring-2 focus:ring-green-500">
+                <input type="password" name="password" id="password" class="w-full p-2 border rounded-md mt-1 focus:ring-2 focus:ring-green-500">
                 <div id="passwordStrength" class="text-sm mt-1"></div>
             </div>
 
@@ -47,6 +48,42 @@
             const strength = e.target.value.length > 8 ? 'Strong 🔒' : 'Weak ⚠️';
             document.getElementById('passwordStrength').textContent = strength;
         });
+
+        async function createAccount(event){
+            event.preventDefault();
+           
+            const email = document.getElementById("email").value;
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            const data ={
+                email: email,
+                username: username,
+                password: password
+            }
+
+            try{
+                const response = await fetch(`http://localhost:3000/auth/custom-api/${dbtype}/${dbname}/register`, {
+                    method: 'POST',  
+                        headers: {
+                        'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data)
+                });
+                
+                const responsejson = await response.json()
+                if (response.status === 201) {
+                    alert("Account Successfully created");
+                    window.location = '/login'
+                    
+                } else {
+                 alert("Error creating account." + responsejson.error);
+                }
+            }
+            catch(error){
+                console.log(error)
+            }
+        }
     </script>
 </body>
 </html>
